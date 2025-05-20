@@ -17,6 +17,7 @@
 , buildOutput ? [ ]
 , nodeModulesToKeep ? [ ]
 , nodeExecToKeep ? [ ]
+, extraWrapScript ? ""
 }:
 
 let
@@ -24,7 +25,7 @@ let
   inherit (packageJSON) version;
   pname = packageJSON.name;
 
-  wrapScript = ''
+  wrapScript = extraWrapScript + ''
     cd \$CWD
     bun run ${bunExtraArgs} ${bunScript}
   '';

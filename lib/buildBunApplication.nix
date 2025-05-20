@@ -26,7 +26,6 @@ let
 
   wrapScript = ''
     cd \$CWD
-    echo \$CWD
     bun run ${bunExtraArgs} ${bunScript}
   '';
 

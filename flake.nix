@@ -38,9 +38,6 @@
               cachix
               bun
               iglu.flakecheck
-              statix
-              deadnix
-              nixpkgs-fmt
             ];
             shellHook = ''
               exec zsh

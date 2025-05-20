@@ -47,8 +47,6 @@
             '';
           };
           packages = nixpkgs.iglu;
-
-          buildBunApplication = import ./lib/buildBunApplication.nix nixpkgs;
         };
     };
 }

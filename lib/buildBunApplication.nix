@@ -15,8 +15,8 @@
 , bunExtraArgs ? ""
 , filesToInstall ? [ "*.ts" ]
 , buildOutput ? [ ]
-, nodeModulesToKeep ? []
-, nodeExecToKeep ? []
+, nodeModulesToKeep ? [ ]
+, nodeExecToKeep ? [ ]
 }:
 
 let
@@ -28,7 +28,7 @@ let
     cd \$CWD
     echo \$CWD
     bun run ${bunExtraArgs} ${bunScript}
-  ''; 
+  '';
 
   nodeModules = stdenv.mkDerivation {
     pname = "${pname}_node-modules";

@@ -15,7 +15,7 @@ buildBunApplication {
   bunExtraArgs = "--bun";
   bunScript = "start";
 
-  filesToInstall= [
+  filesToInstall = [
     "src"
     "public"
     "next.config.ts"

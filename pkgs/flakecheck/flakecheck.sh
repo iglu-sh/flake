@@ -53,3 +53,7 @@ echo "flake_checker: $flake_checker"
 echo "statix:        $statix"
 echo "deadnix:       $deadnix"
 echo "nixpkgs-fmt:   $nixpkgs"
+
+if [ $flake_check == "failed" ] || [ $flake_checker == "failed" ] || [ $statix == "failed" ] || [ $deadnix == "failed" ] || [ $nixpkgs == "failed" ]; then
+  exit 1
+fi

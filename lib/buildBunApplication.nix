@@ -8,7 +8,7 @@
 { src
 , nodeModuleHash
 , nativeBuildInputs ? []
-, BuildInputs ? []
+, buildInputs ? []
 , buildPhase ? ""
 , configurePhase ? ""
 , installPhase ? ""
@@ -37,7 +37,7 @@ let
     inherit src version;
 
     nativeBuildInputs = [ bun ] // nativeBuildInputs;
-    buildInputs = [ nodejs-slim_latest ] // BuildInputs;
+    buildInputs = [ nodejs-slim_latest ] // buildInputs;
 
     dontConfigure = true;
     dontFixup = true;

@@ -7,8 +7,9 @@
 }:
 { src
 , nodeModuleHash
-, nativeBuildInputs ? []
-, buildInputs ? []
+, nativeBuildInputs ? [ ]
+, buildInputs ? [ ]
+, propagatedBuildInputs ? [ ]
 , buildPhase ? ""
 , configurePhase ? ""
 , installPhase ? ""
@@ -20,7 +21,7 @@
 , nodeModulesToKeep ? [ ]
 , nodeExecToKeep ? [ ]
 , extraWrapScript ? ""
-, extraBinPaths ? []
+, extraBinPaths ? [ ]
 }:
 
 let
@@ -75,6 +76,8 @@ stdenv.mkDerivation {
     nodejs-slim_latest
     makeWrapper
   ];
+
+  inherit propagatedBuildInputs;
 
   buildInputs = [ bun ];
 

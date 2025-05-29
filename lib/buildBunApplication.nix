@@ -139,9 +139,9 @@ stdenv.mkDerivation {
   postInstall = ''
     wrapProgram $out/bin/${pname} \
       --prefix PATH : ${
-        lib.makeBinPath[
+        lib.makeBinPath([
           bun
-        ] ++ extraBinPaths
+        ] ++ extraBinPaths)
       } \
       --prefix CWD : $out/share/${pname}/
   '';

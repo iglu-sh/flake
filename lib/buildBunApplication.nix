@@ -7,8 +7,8 @@
 }:
 { src
 , nodeModuleHash
-, nativeBuildInputs
-, BuildInputs
+, nativeBuildInputs ? []
+, BuildInputs ? []
 , buildPhase ? ""
 , configurePhase ? ""
 , installPhase ? ""

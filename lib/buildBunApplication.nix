@@ -36,8 +36,8 @@ let
     pname = "${pname}_node-modules";
     inherit src version;
 
-    nativeBuildInputs = [ bun ] // nativeBuildInputs;
-    buildInputs = [ nodejs-slim_latest ] // buildInputs;
+    nativeBuildInputs = [ bun ] ++ nativeBuildInputs;
+    buildInputs = [ nodejs-slim_latest ] ++ buildInputs;
 
     dontConfigure = true;
     dontFixup = true;

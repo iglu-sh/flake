@@ -7,6 +7,9 @@
 }:
 { src
 , nodeModuleHash
+, nativeBuildInputs ? [ ]
+, buildInputs ? [ ]
+, propagatedBuildInputs ? [ ]
 , buildPhase ? ""
 , configurePhase ? ""
 , installPhase ? ""
@@ -18,6 +21,7 @@
 , nodeModulesToKeep ? [ ]
 , nodeExecToKeep ? [ ]
 , extraWrapScript ? ""
+, extraBinPaths ? [ ]
 }:
 
 let
@@ -34,8 +38,8 @@ let
     pname = "${pname}_node-modules";
     inherit src version;
 
-    nativeBuildInputs = [ bun ];
-    buildInputs = [ nodejs-slim_latest ];
+    nativeBuildInputs = [ bun ] ++ nativeBuildInputs;
+    buildInputs = [ nodejs-slim_latest ] ++ buildInputs;
 
     dontConfigure = true;
     dontFixup = true;
@@ -72,6 +76,8 @@ stdenv.mkDerivation {
     nodejs-slim_latest
     makeWrapper
   ];
+
+  inherit propagatedBuildInputs;
 
   buildInputs = [ bun ];
 
@@ -136,9 +142,9 @@ stdenv.mkDerivation {
   postInstall = ''
     wrapProgram $out/bin/${pname} \
       --prefix PATH : ${
-        lib.makeBinPath[
+        lib.makeBinPath([
           bun
-        ]
+        ] ++ extraBinPaths)
       } \
       --prefix CWD : $out/share/${pname}/
   '';

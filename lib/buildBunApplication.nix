@@ -20,6 +20,7 @@
 , nodeModulesToKeep ? [ ]
 , nodeExecToKeep ? [ ]
 , extraWrapScript ? ""
+, extraBinPaths ? []
 }:
 
 let
@@ -140,7 +141,7 @@ stdenv.mkDerivation {
       --prefix PATH : ${
         lib.makeBinPath[
           bun
-        ]
+        ] ++ extraBinPaths
       } \
       --prefix CWD : $out/share/${pname}/
   '';

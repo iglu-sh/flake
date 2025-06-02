@@ -148,7 +148,7 @@ stdenv.mkDerivation {
       } \
       --prefix CWD : $out/share/${pname}/
   '';
-  
+
   fixupPhase = ''
     ${fixupPhase}
   '';

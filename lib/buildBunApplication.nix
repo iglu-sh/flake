@@ -13,7 +13,7 @@
 , buildPhase ? ""
 , configurePhase ? ""
 , installPhase ? ""
-, postInstall ? ""
+, fixupPhase ? ""
 , bunScript ? "start"
 , bunExtraArgs ? ""
 , filesToInstall ? [ "*.ts" ]
@@ -38,8 +38,8 @@ let
     pname = "${pname}_node-modules";
     inherit src version;
 
-    nativeBuildInputs = [ bun ] ++ nativeBuildInputs;
-    buildInputs = [ nodejs-slim_latest ] ++ buildInputs;
+    nativeBuildInputs = [ bun ];
+    buildInputs = [ nodejs-slim_latest ];
 
     dontConfigure = true;
     dontFixup = true;
@@ -75,11 +75,11 @@ stdenv.mkDerivation {
     nodeModules
     nodejs-slim_latest
     makeWrapper
-  ];
+  ] ++ nativeBuildInputs;
 
   inherit propagatedBuildInputs;
 
-  buildInputs = [ bun ];
+  buildInputs = [ bun ] ++ buildInputs;
 
   configurePhase = ''
     runHook preConfigure
@@ -114,7 +114,7 @@ stdenv.mkDerivation {
     ${installPhase}
 
     for file in ${lib.strings.concatMapStrings (x: " " + x) (filesToInstall ++ [ "package.json" ])}; do
-      cp -r $src/$file $out/share/${pname}/
+      cp -r g$file $out/share/${pname}/
     done
 
     for file in ${lib.strings.concatMapStrings (x: " " + x) buildOutput}; do
@@ -148,4 +148,9 @@ stdenv.mkDerivation {
       } \
       --prefix CWD : $out/share/${pname}/
   '';
+  
+  fixupPhase = ''
+    ${fixupPhase}
+  '';
+
 }

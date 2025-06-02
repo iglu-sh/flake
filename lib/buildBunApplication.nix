@@ -114,7 +114,7 @@ stdenv.mkDerivation {
     ${installPhase}
 
     for file in ${lib.strings.concatMapStrings (x: " " + x) (filesToInstall ++ [ "package.json" ])}; do
-      cp -r g$file $out/share/${pname}/
+      cp -r $file $out/share/${pname}/
     done
 
     for file in ${lib.strings.concatMapStrings (x: " " + x) buildOutput}; do
